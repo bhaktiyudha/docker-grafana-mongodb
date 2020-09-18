@@ -1,0 +1,25 @@
+version: '3.5'
+
+services:
+  mongo-proxy:
+    build:
+      context: .
+      dockerfile: ProxyDockerfile
+    restart: always
+    networks:
+      backend_services:
+        ipv4_address: 192.16.241.11
+  grafana:
+    build:
+      context: .
+      dockerfile: GrafanaDockerfile
+    restart: always
+    ports:
+      - 3030:3000
+    networks:
+      backend_services:
+        ipv4_address: 192.16.241.12
+networks:
+  backend_services:
+    external:
+      name: oee_backend_backend_services
